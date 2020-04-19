@@ -1,4 +1,4 @@
-# unlp-dbd-newsler
+# UTN-FRC Sentiment Analysis for Microservices class
 
 Sentiment Dictionary example for Arquitectura de Software - UTN-FRC 2020
 
