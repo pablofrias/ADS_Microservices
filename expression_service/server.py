@@ -3,15 +3,21 @@ from flask import Flask, jsonify
 import re
 import requests
 import os
+import consul
 
 app = Flask(__name__)
+
+def getDictionaryServiceIP():
+    c = consul.Consul(host='172.17.0.2', port=8500)
+    ip = c.catalog.service('dictionary')[1][0]['Address']
+    return ip
 
 @app.route('/expression/api/v1.0/sentiment/<string:exp>', methods=['GET'])
 def getSentimentValue(exp):
     if len(exp) == 0: abort(404)
     words = re.split(" ", exp)
     sentiment = 0
-    ip_address = os.environ['DICTIONARY_IP']
+    ip_address = getDictionaryServiceIP()
     url = 'http://' + ip_address + ':5000/dictionary/api/v1.0/words/'
     
     for word in words:

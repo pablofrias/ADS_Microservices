@@ -1,9 +1,19 @@
 FROM python:3.8.2-buster
 
-RUN apt-get update && \
-    apt-get install -y logrotate cron && \
-    apt-get clean && \
-    mkdir -p /usr/src/app
+RUN mkdir -p /usr/src/app && \
+    apt update && \
+    apt install net-tools && \ 
+    apt clean
+
+COPY ./libs/consul_1.7.2_linux_amd64.zip .
+
+RUN unzip consul_1.7.2_linux_amd64.zip && \
+    cp consul /usr/sbin && \
+    mkdir -p /etc/consul.d
+
+COPY entrypoint.sh /usr/local/sbin/
+
+COPY consul_service.json /etc/consul.d/dictionary.json
 
 WORKDIR /usr/src/app
 
@@ -13,4 +23,6 @@ RUN python3 -m pip install -r requirements.txt
 
 EXPOSE 5000
 
-ENTRYPOINT ["python", "server.py"]
+ENV CONSUL_IP=172.17.0.2
+
+ENTRYPOINT [ "./entrypoint.sh" ]
