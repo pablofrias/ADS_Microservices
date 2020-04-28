@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 def getDictionaryServiceIP():
     c = consul.Consul(host='172.17.0.2', port=8500)
-    ip = c.catalog.service('dictionary')[1][0]['Address']
+    ip = c.health.service('dictionary', passing=True)[1][0]['Node']['Address']
     return ip
 
 @app.route('/expression/api/v1.0/sentiment/<string:exp>', methods=['GET'])
@@ -23,6 +23,7 @@ def getSentimentValue(exp):
     for word in words:
         response = requests.get(url + word.strip())
         sentiment += response.json()[0]["value"]
+
     return jsonify([
                     {
                         'expression': exp.strip(),
