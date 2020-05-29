@@ -5,7 +5,7 @@ def search(word):
     sentiment = [
         {
             'word': word.strip(),
-            'value': 0
+            'value': 'unknown'
         }
     ]
 

@@ -1,20 +1,3 @@
-.vscode/                     
-Lib/                         
-Scripts/            
-bin/
-__pycache__/
-lib/
-lib64/
-share/
-pyvenv.cfg
-lib64         
-
-# maven
-target/
-*.class
-*.jar
-.mvn/
-
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
