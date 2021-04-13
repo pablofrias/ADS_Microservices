@@ -11,7 +11,7 @@ def getSentimentValue(word):
     if len(word.strip()) == 0: abort(404)
     word_value = search(word)
     if word_value[0]["value"] == 'unknown':
-        send_to_unknown(word)
+        #send_to_unknown(word)
         word_value[0]["value"] = 0
     return jsonify(word_value)
 
