@@ -9,15 +9,6 @@ services:
     depends_on: 
       - consul
     command: ["./wait-for-it.sh", "consul:8500", "--", "python", "entrypoint.sh"]
-  dictionary1:
-    build: "dictionary_service"
-    environment: 
-      - CONSUL_NAME=consul
-    links:
-      - consul
-    depends_on: 
-      - consul
-    command: ["./wait-for-it.sh", "consul:8500", "--", "python", "entrypoint.sh"]
   expression:
     build: "expression_service"
     ports:
@@ -30,6 +21,14 @@ services:
       - consul
       - dictionary
     command: ["./wait-for-it.sh", "consul:8500", "--", "python", "entrypoint.sh"]
+  nginx_lb:
+    image: "nginx_lb"
+    ports:
+      - "8008:80"
+    links:
+      - consul
+    depends_on: 
+      - consul
   consul:
     image: "consul:latest"
     environment: 

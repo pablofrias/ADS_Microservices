@@ -18,8 +18,8 @@ def getSentimentValue(exp):
     if len(exp) == 0: abort(404)
     words = re.split(" ", exp)
     sentiment = 0
-    ip_address = getDictionaryServiceIP()
-    url = 'http://' + ip_address + ':5000/dictionary/api/v1.0/words/'
+    #ip_address = getDictionaryServiceIP()
+    url = 'http://nginx_lb:80/dictionary/api/v1.0/words/'
     print("URL de dictionary: " + url)
     
     for word in words:

@@ -1,11 +1,11 @@
-FROM python:3.10.0a7-slim-buster
+FROM python:3.10.0a7-buster
 
 RUN mkdir -p /usr/src/app && \
     apt update && \
     apt install net-tools
 
-#RUN wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh && \\
-#    mv wait-for-it.sh /usr/sbin
+RUN wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh && \
+    mv wait-for-it.sh /usr/sbin
 
 COPY ./libs/consul_1.7.2_linux_amd64.zip .
 
